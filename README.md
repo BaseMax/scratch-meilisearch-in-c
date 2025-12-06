@@ -43,14 +43,14 @@ meili> search movies matrix
 ## Manual Build & Run (Linux/macOS/WSL)
 
 ```bash
-gcc -Wall -Wextra -std=c11 -O2 scratch-meilisearch.c -o meili-client
-./meili-client
+gcc -Wall -Wextra -std=c11 -O2 scratch-meilisearch.c -o scratch-meilisearch
+./scratch-meilisearch
 ```
 
 Or with custom host/port/key:
 
 ```bash
-./meili-client -h 127.0.0.1 -p 7700 -a your_master_key
+./scratch-meilisearch -h 127.0.0.1 -p 7700 -a your_master_key
 ```
 
 ## Supported Commands
@@ -93,8 +93,8 @@ docker compose up --build
 One-shot examples:
 
 ```bash
-docker compose run --rm meili-client ./meili-client -h meilisearch create_index books
-docker compose run --rm meili-client ./meili-client -h meilisearch search books "dystopia"
+docker compose run --rm scratch-meilisearch ./scratch-meilisearch -h meilisearch create_index books
+docker compose run --rm scratch-meilisearch ./scratch-meilisearch -h meilisearch search books "dystopia"
 ```
 
 ## Author
