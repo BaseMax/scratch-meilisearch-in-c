@@ -1,6 +1,6 @@
 # scratch-meilisearch-in-c
 
-A **from-scratch Meilisearch client written in pure C** — no dependencies, no external libraries, just POSIX sockets and standard C.
+A **from-scratch Meilisearch client written in pure C**. No dependencies, no external libraries, just POSIX sockets and standard C.
 
 This is a minimal, educational, and fully functional HTTP client that talks directly to a Meilisearch server using raw TCP sockets and handcrafted HTTP/1.1 requests.
 
