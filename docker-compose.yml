@@ -7,11 +7,9 @@ services:
     environment:
       - MEILI_NO_ANALYTICS=true
       - MEILI_ENV=development
-      # Optional: set a master key (highly recommended in production)
-      # - MEILI_MASTER_KEY=your_master_key_here
     volumes:
       - meili_data:/meili_data
-    command: --no-analytics --log-level=INFO
+    command: ["meilisearch", "--no-analytics", "--log-level=INFO"]
 
   meili-client:
     build:
@@ -20,8 +18,6 @@ services:
     container_name: meili-client
     depends_on:
       - meilisearch
-    tty: true
-    stdin_open: true
 
 volumes:
   meili_data:
