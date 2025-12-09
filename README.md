@@ -22,6 +22,22 @@ Perfect for learning how HTTP works under the hood, systems programming, or just
 - Raw HTTP mode for advanced use
 - Works perfectly with Docker + Meilisearch
 
+## Interactive mode using docker compose run
+
+```
+docker compose run --rm meili-client
+```
+
+- Opens the REPL.
+- You can type commands like list_indexes, create_index movies title, etc.
+- Exits when you type quit or exit.
+
+### Run one-shot commands
+
+```
+docker compose run --rm meili-client ./scratch-meilisearch -h meilisearch list_indexes
+```
+
 ## Quick Start (Docker Recommended)
 
 Clone the repo and run with Docker Compose:
