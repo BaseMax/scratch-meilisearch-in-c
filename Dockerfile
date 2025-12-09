@@ -5,11 +5,19 @@ RUN apk add --no-cache \
     musl-dev \
     make \
     bash \
-    curl
+    curl \
+    nc
 
 WORKDIR /app
+
 COPY scratch-meilisearch.c .
 COPY wait-for-it.sh .
 
-CMD ["./wait-for-it.sh", "meilisearch:7700", "--", "./scratch-meilisearch", "-h", "meilisearch", "-p", "7700"]
+RUN chmod +x wait-for-it.sh
+
 RUN gcc -Wall -Wextra -std=c11 -O2 scratch-meilisearch.c -o scratch-meilisearch
+
+ENV MEILI_HOST=meilisearch
+ENV MEILI_PORT=7700
+
+ENTRYPOINT ["sh", "-c", "./wait-for-it.sh ${MEILI_HOST}:${MEILI_PORT} -- ./scratch-meilisearch -h ${MEILI_HOST} -p ${MEILI_PORT}"]
