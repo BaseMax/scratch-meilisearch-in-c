@@ -18,6 +18,9 @@ services:
     container_name: meili-client
     depends_on:
       - meilisearch
+    environment:
+      MEILI_HOST: meilisearch
+      MEILI_PORT: 7700
 
 volumes:
   meili_data:
