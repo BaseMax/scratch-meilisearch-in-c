@@ -9,6 +9,7 @@
 #include <getopt.h>
 #include <strings.h>
 #include <ctype.h>
+#include <netdb.h>
 
 #define BUFFER_SIZE 4096
 #define MAX_ARGS 64
@@ -25,26 +26,33 @@ void parse_and_print_http_response(int sock);
 void usage(void);
 
 int connect_to_meili(const char* host, int port) {
-    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    struct addrinfo hints, *res, *p;
+    char port_str[16];
+    int sock = -1;
+
+    snprintf(port_str, sizeof(port_str), "%d", port);
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+
+    if (getaddrinfo(host, port_str, &hints, &res) != 0) {
+        perror("getaddrinfo");
+        return -1;
+    }
+
+    for (p = res; p != NULL; p = p->ai_next) {
+        sock = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+        if (sock < 0) continue;
+        if (connect(sock, p->ai_addr, p->ai_addrlen) == 0) break;
+        close(sock);
+        sock = -1;
+    }
+
+    freeaddrinfo(res);
+
     if (sock < 0) {
-        perror("socket");
-        return -1;
-    }
-
-    struct sockaddr_in addr;
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(port);
-
-    if (inet_pton(AF_INET, host, &addr.sin_addr) <= 0) {
-        perror("inet_pton");
-        close(sock);
-        return -1;
-    }
-
-    if (connect(sock, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
-        perror("connect");
-        close(sock);
-        return -1;
+        fprintf(stderr, "Failed to connect to %s:%d\n", host, port);
     }
 
     return sock;
