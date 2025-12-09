@@ -6,7 +6,7 @@ RUN apk add --no-cache \
     make \
     bash \
     curl \
-    nc
+    netcat-openbsd
 
 WORKDIR /app
 
