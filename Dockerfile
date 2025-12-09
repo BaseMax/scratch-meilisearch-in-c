@@ -20,4 +20,4 @@ RUN gcc -Wall -Wextra -std=c11 -O2 scratch-meilisearch.c -o scratch-meilisearch
 ENV MEILI_HOST=meilisearch
 ENV MEILI_PORT=7700
 
-ENTRYPOINT ["sh", "-c", "./wait-for-it.sh ${MEILI_HOST}:${MEILI_PORT} -- ./scratch-meilisearch -h ${MEILI_HOST} -p ${MEILI_PORT}"]
+ENTRYPOINT ["sh", "-c", "./wait-for-it.sh ${MEILI_HOST}:${MEILI_PORT} -- ./scratch-meilisearch -h ${MEILI_HOST} -p ${MEILI_PORT}; exec bash"]
