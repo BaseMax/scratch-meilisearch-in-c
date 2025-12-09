@@ -262,8 +262,9 @@ void parse_and_print_http_response(int sock) {
 }
 
 void usage(void) {
-    printf("Usage: meili-client [options] [cmd [arg [arg ...]]]\n"
-           "A simple Meilisearch client.\n\n"
+    printf("Usage: scratch-meilisearch [options] [cmd [arg [arg ...]]]\n"
+           "A simple Meilisearch client.\n"
+           "https://github.com/BaseMax/scratch-meilisearch-in-c/\n\n"
            "Options:\n"
            "  -h <hostname>      Server hostname (default: 127.0.0.1)\n"
            "  -p <port>          Server port (default: 7700)\n"
